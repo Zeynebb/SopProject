@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SopSistemiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sopKayit">
+    <Key>
+      <PropertyRef Name="sopID" />
+    </Key>
+    <Property Name="sopID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="baslik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="dosya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="user_id" Type="Int32" />
+    <NavigationProperty Name="sopUser" Relationship="Self.FK_sopKayit_sopUser" FromRole="sopKayit" ToRole="sopUser" />
+    <NavigationProperty Name="sopOnay" Relationship="Self.FK_sopOnay_sopKayit" FromRole="sopKayit" ToRole="sopOnay" />
+    <Property Name="tarih" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="sopOnay">
+    <Key>
+      <PropertyRef Name="onayID" />
+    </Key>
+    <Property Name="onayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="Int32" />
+    <Property Name="sopID" Type="Int32" />
+    <Property Name="durum" Type="Boolean" />
+    <NavigationProperty Name="sopKayit" Relationship="Self.FK_sopOnay_sopKayit" FromRole="sopOnay" ToRole="sopKayit" />
+    <NavigationProperty Name="sopUser" Relationship="Self.FK_sopOnay_sopUser" FromRole="sopOnay" ToRole="sopUser" />
+    <Property Name="tarih" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="sopUser">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="adSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="tcKimlik" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sicilNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="unvan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="yetkiID" Type="Int32" />
+    <NavigationProperty Name="sopKayit" Relationship="Self.FK_sopKayit_sopUser" FromRole="sopUser" ToRole="sopKayit" />
+    <NavigationProperty Name="sopOnay" Relationship="Self.FK_sopOnay_sopUser" FromRole="sopUser" ToRole="sopOnay" />
+  </EntityType>
+  <Association Name="FK_sopKayit_sopUser">
+    <End Role="sopUser" Type="Self.sopUser" Multiplicity="0..1" />
+    <End Role="sopKayit" Type="Self.sopKayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sopUser">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="sopKayit">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sopOnay_sopKayit">
+    <End Role="sopKayit" Type="Self.sopKayit" Multiplicity="0..1" />
+    <End Role="sopOnay" Type="Self.sopOnay" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sopKayit">
+        <PropertyRef Name="sopID" />
+      </Principal>
+      <Dependent Role="sopOnay">
+        <PropertyRef Name="sopID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sopOnay_sopUser">
+    <End Role="sopUser" Type="Self.sopUser" Multiplicity="0..1" />
+    <End Role="sopOnay" Type="Self.sopOnay" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sopUser">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="sopOnay">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SopSistemiEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sopKayit" EntityType="Self.sopKayit" />
+    <EntitySet Name="sopOnay" EntityType="Self.sopOnay" />
+    <EntitySet Name="sopUser" EntityType="Self.sopUser" />
+    <AssociationSet Name="FK_sopKayit_sopUser" Association="Self.FK_sopKayit_sopUser">
+      <End Role="sopUser" EntitySet="sopUser" />
+      <End Role="sopKayit" EntitySet="sopKayit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sopOnay_sopKayit" Association="Self.FK_sopOnay_sopKayit">
+      <End Role="sopKayit" EntitySet="sopKayit" />
+      <End Role="sopOnay" EntitySet="sopOnay" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sopOnay_sopUser" Association="Self.FK_sopOnay_sopUser">
+      <End Role="sopUser" EntitySet="sopUser" />
+      <End Role="sopOnay" EntitySet="sopOnay" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

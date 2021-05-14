@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "SOP";
+}
+
+<form action="/Home/Index" method="post">
+    <table class="giris_table" style="text-align:right; overflow:hidden;margin-right: auto;margin-left: auto;margin-top:120px;">
+        <caption id="baslikGiris" style="text-align: center;font-weight: bold;font-size:25px;margin-left:40px;">GİRİŞ YAP</caption>
+        <tr>
+            <td>
+                <label for="tanim" style=" display: inline-block;margin-bottom: 5px;font-weight: bold;">Kullanıcı Adı:</label>
+            </td>
+            <td><input type="text" name="kullaniciAdi" style="width: 4000px;height:40px;word-wrap:break-word;padding-left:0px;padding-right:5px;background-color:#f1f1f1" required /></td>
+        </tr>
+        <tr>
+            <td><label for="tanim" style=" display: inline-block; margin-bottom: 5px;font-weight: bold;">Şifre:</label></td>
+            <td><input type="password" name="sifre" style="width:4000px; height:40px;word-wrap:break-word;padding-left:0px;padding-right:5px;background-color:#f1f1f1" required /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <p style="float:right;">@Html.ActionLink("Kayıt Ol", "KayitOl", "Home", new { @style = "color:black; font-size:16px;" })</p>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" class="btn btn-default" style="background-color:#0c0c0c;color:white;" value="GİRİŞ YAP" /></td>
+        </tr>
+    </table>
+    <div class="col-md-5"></div>
+    <div class="col-md-4" style="color:darkred;font-weight: bold;font-size: 20px;margin-top: 20px;">
+        @if (TempData["uyarıMesaj"] != null)
+        {
+            @TempData["uyarıMesaj"].ToString();
+        }
+    </div>
+    <div class="col-md-3"></div>
+</form>

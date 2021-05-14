@@ -1,0 +1,66 @@
+﻿@model SOP.Models.sopKayit
+@{
+    ViewBag.Title = "SOP";
+    Layout = "~/Views/Shared/_LayoutYonetici.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/Content/docsupport/chosen.css">
+</head>
+
+
+@using (Html.BeginForm("CreateSOP", "SOP", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <h2 style=" text-align: center;font-weight: bold;font-size:25px;margin-left:40px;">SOP OLUŞTUR</h2>
+    <hr />
+    <div class="form-horizontal" style="border:1px solid black; padding:5%;">
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group" >
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-3">
+                <label for="tanim" style="display: inline-block;margin-bottom: 5px;font-weight: bold;font-size:20px;">SOP Başlığı:</label>
+            </div>
+            <div class="col-md-6">
+                @Html.TextAreaFor(model => model.baslik, new { style="width:9000px; height:90px;", required="required"})
+                @Html.ValidationMessageFor(model => model.baslik, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">  </div>
+            <div class="col-md-3">
+                <label for="tarih" style=" display: inline-block;margin-bottom: 5px;font-weight: bold;font-size:20px;">Dosya Seç:</label>
+            </div>
+            <div class="col-md-6">
+                <input type="file" name="dosya" id="dosya" value="" accept=".pdf" class="form-control" required/>
+                @Html.ValidationMessageFor(model => model.dosya, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">  </div>
+            <div class="col-md-3">
+                <label style=" display: inline-block;margin-bottom: 5px;font-weight: bold;font-size:20px;">Sorumlu Personeller:</label>
+            </div>
+            <div class="col-md-6">
+                @Html.DropDownList("user_id", null, htmlAttributes: new { @class = "chosen-select", multiple = "multiple", @placeholder = "Personel Seçiniz...", style = "width:100%;", required = "required" })
+                @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">  </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <a href="/Home/yoneticiAnasayfa">
+                    <input type="button" value="GERİ DÖN" class="btn btn-default" style="background-color:#0c0c0c; color:white;" />
+                </a>
+                <input type="submit" value="KAYDET" class="btn btn-default" style="background-color:#0c0c0c; color:white;" />
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Content/docsupport/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="~/Content/docsupport/chosen.jquery.js" type="text/javascript"></script>
+<script src="~/Content/docsupport/init.js" type="text/javascript" charset="utf-8"></script>

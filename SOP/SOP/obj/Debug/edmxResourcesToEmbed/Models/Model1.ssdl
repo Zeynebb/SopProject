@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SopSistemiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sopKayit">
+    <Key>
+      <PropertyRef Name="sopID" />
+    </Key>
+    <Property Name="sopID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="baslik" Type="nvarchar(max)" />
+    <Property Name="dosya" Type="nvarchar" MaxLength="50" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="tarih" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sopOnay">
+    <Key>
+      <PropertyRef Name="onayID" />
+    </Key>
+    <Property Name="onayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="sopID" Type="int" />
+    <Property Name="durum" Type="bit" />
+    <Property Name="tarih" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sopUser">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kullaniciAdi" Type="nvarchar" MaxLength="50" />
+    <Property Name="adSoyad" Type="nvarchar" MaxLength="50" />
+    <Property Name="tcKimlik" Type="nvarchar" MaxLength="50" />
+    <Property Name="sicilNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="sifre" Type="nvarchar" MaxLength="50" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="unvan" Type="nvarchar" MaxLength="50" />
+    <Property Name="yetkiID" Type="int" />
+  </EntityType>
+  <Association Name="FK_sopKayit_sopUser">
+    <End Role="sopUser" Type="Self.sopUser" Multiplicity="0..1" />
+    <End Role="sopKayit" Type="Self.sopKayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sopUser">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="sopKayit">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sopOnay_sopKayit">
+    <End Role="sopKayit" Type="Self.sopKayit" Multiplicity="0..1" />
+    <End Role="sopOnay" Type="Self.sopOnay" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sopKayit">
+        <PropertyRef Name="sopID" />
+      </Principal>
+      <Dependent Role="sopOnay">
+        <PropertyRef Name="sopID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sopOnay_sopUser">
+    <End Role="sopUser" Type="Self.sopUser" Multiplicity="0..1" />
+    <End Role="sopOnay" Type="Self.sopOnay" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sopUser">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="sopOnay">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SopSistemiModelStoreContainer">
+    <EntitySet Name="sopKayit" EntityType="Self.sopKayit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sopOnay" EntityType="Self.sopOnay" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sopUser" EntityType="Self.sopUser" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_sopKayit_sopUser" Association="Self.FK_sopKayit_sopUser">
+      <End Role="sopUser" EntitySet="sopUser" />
+      <End Role="sopKayit" EntitySet="sopKayit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sopOnay_sopKayit" Association="Self.FK_sopOnay_sopKayit">
+      <End Role="sopKayit" EntitySet="sopKayit" />
+      <End Role="sopOnay" EntitySet="sopOnay" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sopOnay_sopUser" Association="Self.FK_sopOnay_sopUser">
+      <End Role="sopUser" EntitySet="sopUser" />
+      <End Role="sopOnay" EntitySet="sopOnay" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

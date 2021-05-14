@@ -1,0 +1,98 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<SOP.Models.sopOnay>
+@{
+    ViewBag.Title = "SOP";
+    Layout = "~/Views/Shared/_LayoutYonetici.cshtml";
+}
+<html>
+<head>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-html5-1.5.4/b-print-1.5.4/r-2.2.2/sc-1.5.0/sl-1.2.6/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-html5-1.5.4/b-print-1.5.4/r-2.2.2/sc-1.5.0/sl-1.2.6/datatables.min.js"></script>
+</head>
+<body>
+    <h2 style="font-size: 20px;font-weight: bold; margin-left:40%;">Onay Bekleyen SOP Listesi</h2>
+    <hr />
+
+    <table class="table table-hover" border="1" id="table" cellspacing="0" align="center">
+       <thead>
+           <tr>
+               <th style="background-color:#b1b0b0; border: 1px solid black; text-align:center;">NO</th>
+               <th style="background-color:#b1b0b0; border: 1px solid black; text-align:center;">BAŞLIK</th>
+               <th style="background-color:#b1b0b0; border: 1px solid black; text-align:center;">AD SOYAD</th>
+               <th style="background-color:#b1b0b0; border: 1px solid black; text-align:center;">SİCİL NO</th>
+               <th style="background-color:#b1b0b0; border: 1px solid black; text-align:center;">SOP OLUŞTURMA TARİH</th>
+               <th style="background-color:#b1b0b0; border: 1px solid black; text-align:center;">DURUM</th>
+               <th style="background-color:#b1b0b0; border: 1px solid black; text-align:center;"></th>
+           </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td style="background-color:#f8f5f5;font-weight:lighter;border: 1px solid black; text-align:center;word-wrap:break-word;">
+                    @Html.DisplayFor(modelItem => item.sopID)
+                </td>
+                <td style="background-color:#f8f5f5;font-weight:lighter;border: 1px solid black; text-align:center;word-wrap:break-word;">
+                    @Html.DisplayFor(modelItem => item.sopKayit.baslik)
+                </td>
+                <td style="background-color:#f8f5f5;font-weight:lighter;border: 1px solid black; text-align:center;word-wrap:break-word;">
+                    @Html.DisplayFor(modelItem => item.sopUser.adSoyad)
+                </td>
+                <td style="background-color:#f8f5f5;font-weight:lighter;border: 1px solid black; text-align:center;word-wrap:break-word;">
+                    @Html.DisplayFor(modelItem => item.sopUser.sicilNo)
+                </td>
+                <td style="background-color:#f8f5f5;font-weight:lighter;border: 1px solid black; text-align:center;word-wrap:break-word;">
+                    @Html.DisplayFor(modelItem => item.sopKayit.tarih)
+                </td>
+                <td style="background-color:#f8f5f5;font-weight:lighter;border: 1px solid black; text-align:center;word-wrap:break-word;">
+                    @if (item.durum == false)
+                    {
+                        <label>Onay Bekliyor</label>
+                    }
+                    else
+                    {
+                        <label>Onaylandı</label>
+                    }
+                </td>
+                <td style="background-color:#f8f5f5;font-weight:lighter;border: 1px solid black; text-align:center;max-width:100px;word-wrap:break-word;">
+                    @Html.ActionLink("Görüntüle", "yoneticiGoruntuleme", new { id = item.sopID })
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <script>
+        var tbl = null;
+
+        $(document).ready(function () {
+            tbl = $("#table").DataTable({
+                dom: 'Bfrtip',
+
+                buttons: [
+                    'excel'
+                ],
+
+                "language": {
+                    "search": "Ara:",
+                    "info": "Gösterilen _START_ - _END_ toplam _TOTAL_ kayıt",
+                    "paginate": {
+                        "first": "İlk",
+                        "last": "Son",
+                        "next": "Sonraki",
+                        "previous": "Önceki"
+
+                    },
+                    "zeroRecords": "Kayıt bulunamadı.",
+                    "infoEmpty": "Böyle bir kayıt yok",
+                    "infoFiltered": "(_MAX_ kayıttan filtrelendi.)"
+                },
+                responsive: true
+            });
+        });
+    </script>
+</body>
+</html>
+

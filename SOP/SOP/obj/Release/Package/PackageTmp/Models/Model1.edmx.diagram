@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fac44d7bf2674f19814369f4a91828a9" Name="Diagram1">
+        <EntityTypeShape EntityType="REEDER_PROJECTModel.sopKayit" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="REEDER_PROJECTModel.sopOnay" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="REEDER_PROJECTModel.sopUser" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="REEDER_PROJECTModel.FK_sopKayit_sopUser" ManuallyRouted="false" />
+        <AssociationConnector Association="REEDER_PROJECTModel.FK_sopOnay_sopKayit" ManuallyRouted="false" />
+        <AssociationConnector Association="REEDER_PROJECTModel.FK_sopOnay_sopUser" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

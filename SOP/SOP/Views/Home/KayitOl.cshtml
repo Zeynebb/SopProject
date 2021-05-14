@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "SOP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form action="/Home/KayitOl" method="post">
+    <table class="kayit_table" id="label" style="overflow: hidden;margin-left: auto;margin-right:auto;margin-top:5%;">
+        <caption id="baslikKayit" style="text-align: center;font-weight: bold;font-size: 30px">KAYIT OL</caption>
+        <tr>
+            <td style="text-align:right;"><label for="kullaniciAdi">Kullanıcı Adı:</label></td>
+            <td width="100">
+                <input type="text" name="kullaniciAdi" style="background-color:#f1f1f1; width: 4000px;height:40px;word-wrap:break-word;padding-left:0px;padding-right:5px;" required />
+                <span style="color:red; font-size:15px; padding-top:-5px;">
+                    @if (TempData["KullaniciMesaji"] != null)
+                    {
+                        @TempData["KullaniciMesaji"].ToString();
+                    }
+                </span>
+            </td>
+        <tr>
+            <td style="text-align:right;"><label for="soyad">Tc.Kimlik:</label></td>
+            <td><input type="text" maxlength="11" name="tcKimlik" style=" background-color:#f1f1f1; width: 4000px;height:40px;word-wrap:break-word;padding-left:0px;padding-right:5px;" required /></td>
+            @if (TempData["kimlikMesaji"] != null)
+            {
+                @TempData["kimlikMesaji"].ToString();
+            }
+        </tr>
+        <tr>
+            <td style="text-align:right;"><label for="ad">Ad-Soyad:</label></td>
+            <td><input type="text" name="adSoyad"style="background-color:#f1f1f1;width: 4000px;height:40px;word-wrap:break-word;padding-left:0px;padding-right:5px;" required /></td>
+        </tr>
+        <tr>
+            <td style="text-align:right;"><label for="sicilNo">Sicil No:</label></td>
+            <td><input type="text" name="sicilNo"style="background-color:#f1f1f1;width: 4000px;height:40px;word-wrap:break-word;padding-left:0px;padding-right:5px;" required /></td>
+        </tr>
+        <tr>
+            <td style="text-align:right;"><label for="bolum">E-Mail:</label></td>
+            <td><input type="email" name="email"style="background-color:#f1f1f1;width: 4000px;height:40px;word-wrap:break-word;padding-left:0px;padding-right:5px;" required /></td>
+        </tr>
+        <tr>
+            <td style="text-align:right;"><label for="unvan">Ünvan:</label></td>
+            <td><input type="text" name="unvan"style="background-color:#f1f1f1; width: 4000px;height:40px;word-wrap:break-word;padding-left:0px;padding-right:5px;" required /></td>
+
+        </tr>
+        <tr>
+            <td style="text-align:right;"><label for="sifre">Şifre:</label></td>
+            <td><input type="password" name="sifre" style="background-color:#f1f1f1;width: 4000px;height:40px;word-wrap:break-word;padding-left:0px;padding-right:5px;" required /></td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td colspan="2">
+                <input type="submit" value="KAYDET" name="KAYDET" class="btn btn-default" style="background-color:#0c0c0c; color:white;" />
+                <br />
+                <div style="color:blue; font-size:15px; padding-top:-5px;">
+                    @if (TempData["KullaniciMesaji2"] != null)
+                    {
+                        @TempData["KullaniciMesaji2"].ToString();
+                        <br />
+                        @Html.ActionLink("Giriş Yap", "Index", "Home", new { @style="color:black;" })
+                    }
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
