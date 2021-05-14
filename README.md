@@ -45,3 +45,8 @@
   + Tanımlanan SOP'yi hangi kullanıcının hangi tarihte onayladığını görüntüleme
 
 > ![adminOnaylanmisSOP](https://user-images.githubusercontent.com/46132459/118277415-717b4280-b4d1-11eb-80be-f113bbe9ff06.gif) 
+ 
+### Veritabanı Diyagramı
+
+> ![sopDatabase](https://user-images.githubusercontent.com/46132459/118291097-df2e6b00-b4df-11eb-8d89-4c5bf7392bb6.PNG)
+
